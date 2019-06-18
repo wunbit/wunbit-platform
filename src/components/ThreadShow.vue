@@ -6,9 +6,9 @@
       <div class="post-list">
         <div v-for="postId in thread.posts" class="post">
           <div class="user-info">
-            <a href="#" class="user-name">{{
-              users[posts[postId].userId].name
-            }}</a>
+            <a href="#" class="user-name">
+              {{ users[posts[postId].userId].name }}
+            </a>
 
             <a href="#">
               <img
