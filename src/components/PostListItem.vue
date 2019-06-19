@@ -7,7 +7,7 @@
         <img class="avatar-large" :src="user.avatar" alt />
       </a>
 
-      <p class="desktop-only text-small">{{ userPostsCounts }} posts</p>
+      <p class="desktop-only text-small">{{ userPostsCount }} posts</p>
     </div>
 
     <div class="post-content">
@@ -30,11 +30,11 @@ export default {
   computed: {
     user() {
       return sourceData.users[this.post.userId]
-    }
-  },
+    },
 
-  userPostsCount() {
-    return Object.keys(this.user.posts).length
+    userPostsCount() {
+      return Object.keys(this.user.posts).length
+    }
   }
 }
 </script>
