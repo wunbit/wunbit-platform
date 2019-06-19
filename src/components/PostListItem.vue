@@ -14,19 +14,26 @@
       <div>{{ post.text }}</div>
     </div>
 
-    <div class="post-date text-faded">{{ post.publishedAt }}</div>
+    <div class="post-date text-faded">
+      <AppDate :timestamp="post.publishedAt" />
+    </div>
   </div>
 </template>
 
 <script>
 import sourceData from '@/data'
+import AppDate from './AppDate'
 export default {
+  components: {
+    AppDate
+  },
   props: {
     post: {
       required: true,
       type: Object
     }
   },
+
   computed: {
     user() {
       return sourceData.users[this.post.userId]
