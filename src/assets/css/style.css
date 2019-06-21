@@ -1264,12 +1264,14 @@ ul .navbar-mobile-item:last-child {
 }
 
 header > a.logo {
-  width: 50px;
+  width: 250px;
+  padding-left: 50px;
 }
 
 @media (min-width: 240px) and (max-width: 720px) {
   header > a.logo {
-    width: 35px;
+    width: 155px;
+    padding-left: 25px;
   }
 }
 

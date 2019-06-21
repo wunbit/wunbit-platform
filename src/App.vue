@@ -1,13 +1,21 @@
 <template>
   <div id="app">
+    <TheNavbar/>
     <div class="container">
-      <router-link :to="{ name: 'Home' }">
-        <img src="./assets/logo.png" />
-      </router-link>
-      <router-view />
+      <router-view/>
     </div>
   </div>
 </template>
+
+<script>
+import TheNavbar from '@/components/TheNavbar'
+export default {
+  components: {
+    TheNavbar
+  }
+}
+</script>
+
 
 <style>
 @import 'assets/css/style.css';
