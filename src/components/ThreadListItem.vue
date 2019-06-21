@@ -2,16 +2,13 @@
   <div class="thread">
     <div>
       <p>
-        <router-link
-          :to="{ name: 'ThreadShow', params: { id: thread['.key'] } }"
-          >{{ thread.title }}</router-link
-        >
+        <router-link :to="{ name: 'ThreadShow', params: { id: thread['.key'] } }">{{ thread.title }}</router-link>
       </p>
       <p class="text-faded text-xsmall">
         By
         <a href="profile.html">{{ user.name }}</a>
         ,
-        <AppDate :timestamp="thread.publishedAt" />.
+        <AppDate :timestamp="thread.publishedAt"/>.
       </p>
     </div>
 
@@ -35,7 +32,6 @@
 </template>
 
 <script>
-import sourceData from '@/data'
 export default {
   props: {
     thread: {
@@ -50,7 +46,7 @@ export default {
     },
 
     user() {
-      return sourceData.users[this.thread.userId]
+      return this.$store.state.users[this.thread.userId]
     }
   }
 }

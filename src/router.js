@@ -21,6 +21,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/forum/:id',
+      name: 'Forum',
+      component: Forum,
+      props: true
+    },
+    {
       path: '/thread/:id',
       name: 'ThreadShow',
       component: ThreadShow,
