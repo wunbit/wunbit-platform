@@ -2,13 +2,16 @@
   <div class="thread">
     <div>
       <p>
-        <router-link :to="{ name: 'ThreadShow', params: { id: thread['.key'] } }">{{ thread.title }}</router-link>
+        <router-link
+          :to="{ name: 'ThreadShow', params: { id: thread['.key'] } }"
+          >{{ thread.title }}</router-link
+        >
       </p>
       <p class="text-faded text-xsmall">
         By
         <a href="profile.html">{{ user.name }}</a>
         ,
-        <AppDate :timestamp="thread.publishedAt"/>.
+        <AppDate :timestamp="thread.publishedAt" />.
       </p>
     </div>
 
@@ -32,6 +35,8 @@
 </template>
 
 <script>
+import { countObjectProperties } from '@/utils'
+
 export default {
   props: {
     thread: {
@@ -42,7 +47,7 @@ export default {
 
   computed: {
     repliesCount() {
-      return Object.keys(this.thread.posts).length - 1
+      return countObjectProperties(this.thread.posts) - 1
     },
 
     user() {
