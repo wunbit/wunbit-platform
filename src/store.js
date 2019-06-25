@@ -78,20 +78,23 @@ export default new Vuex.Store({
       if (!user.posts) {
         Vue.set(user, 'posts', {})
       }
+      Vue.set(user.posts, postId, postId)
     },
 
     appendThreadToForum(state, { forumId, threadId }) {
       const forum = state.forums[forumId]
       if (!forum.threads) {
-        Vue.set(forum.threads, threadId, threadId)
+        Vue.set(forum, 'threads')
       }
+      Vue.set(forum.threads, threadId, threadId)
     },
 
     appendThreadToUser(state, { userId, threadId }) {
       const user = state.users[userId]
       if (!user.threads) {
-        Vue.set(user.threads, threadId, threadId)
+        Vue.set(user, 'threads', {})
       }
+      Vue.set(user.threads, threadId, threadId)
     }
   }
 })
