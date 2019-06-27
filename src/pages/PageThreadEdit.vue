@@ -4,6 +4,7 @@
       Editing
       <i>{{ thread.title }}</i>
     </h1>
+
     <ThreadEditor
       :title="thread.title"
       :text="text"
@@ -19,24 +20,20 @@ export default {
   components: {
     ThreadEditor
   },
-
   props: {
     id: {
       type: String,
       required: true
     }
   },
-
   computed: {
     thread() {
       return this.$store.state.threads[this.id]
     },
-
     text() {
       return this.$store.state.posts[this.thread.firstPostId].text
     }
   },
-
   methods: {
     save({ title, text }) {
       this.$store
@@ -46,15 +43,11 @@ export default {
           text
         })
         .then(thread => {
-          this.$router.push({
-            name: 'ThreadShow',
-            params: { id: this.id }
-          })
+          this.$router.push({ name: 'ThreadShow', params: { id: this.id } })
         })
     },
-
     cancel() {
-      this.$router.push({ name: 'Forum', params: { id: this.id } })
+      this.$router.push({ name: 'ThreadShow', params: { id: this.id } })
     }
   }
 }

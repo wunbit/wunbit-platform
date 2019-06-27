@@ -44,7 +44,6 @@ export default {
       default: ''
     }
   },
-
   data() {
     return {
       form: {
@@ -53,18 +52,15 @@ export default {
       }
     }
   },
-
   computed: {
     isUpdate() {
       return !!this.title
     }
   },
-
   methods: {
     save() {
       this.$emit('save', { title: this.form.title, text: this.form.text })
     },
-
     cancel() {
       this.$emit('cancel')
     }
@@ -72,5 +68,4 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style></style>
+<style scoped></style>
