@@ -15,7 +15,7 @@ const firebaseConfig = {
   authDomain: 'wunbit-platform.firebaseapp.com',
   databaseURL: 'https://wunbit-platform.firebaseio.com',
   projectId: 'wunbit-platform',
-  storageBucket: '',
+  storageBucket: 'wunbit-platform.appspot.com',
   messagingSenderId: '1031425761253',
   appId: '1:1031425761253:web:ba294194a00bfa49'
 }
