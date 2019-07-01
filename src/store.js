@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import firebase from 'firebase'
 import { countObjectProperties } from '@/utils'
 
 Vue.use(Vuex)
@@ -105,6 +106,36 @@ export default new Vuex.Store({
 
     updateUser({ commit }, user) {
       commit('setUser', { userId: user['.key'], user })
+    },
+
+    fetchThread({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' })
+    },
+
+    fetchUser({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'users', id, emoji: '🙋' })
+    },
+
+    fetchPost({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'posts', id, emoji: '💬' })
+    },
+
+    fetchItem({ state, commit }, { id, emoji, resource }) {
+      console.log('🔥‍', emoji, id)
+      return new Promise((resolve, reject) => {
+        firebase
+          .database()
+          .ref(resource)
+          .child(id)
+          .once('value', snapshot => {
+            commit('setItem', {
+              resource,
+              id: snapshot.key,
+              item: snapshot.val()
+            })
+            resolve(state[resource][id])
+          })
+      })
     }
   },
 
@@ -119,6 +150,11 @@ export default new Vuex.Store({
 
     setThread(state, { thread, threadId }) {
       Vue.set(state.threads, threadId, thread)
+    },
+
+    setItem(state, { item, id, resource }) {
+      item['.key'] = id
+      Vue.set(state[resource], id, item)
     },
 
     appendPostToThread: makeAppendChildToParentMutation({
