@@ -33,8 +33,5 @@ console.log(firebaseConfig)
 new Vue({
   router,
   store,
-  render: h => h(App),
-  beforeCreate() {
-    store.dispatch('fetchUser', { id: store.state.authId })
-  }
+  render: h => h(App)
 }).$mount('#app')
