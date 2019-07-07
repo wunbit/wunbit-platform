@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '@/store'
 import Router from 'vue-router'
 import Home from '@/pages/PageHome'
 import ThreadShow from '@/pages/PageThreadShow'
@@ -10,11 +11,9 @@ import Profile from '@/pages/PageProfile'
 import Register from '@/pages/PageRegister'
 import SignIn from '@/pages/PageSignIn'
 import NotFound from '@/pages/PageNotFound'
-import store from '@/store'
-
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -56,13 +55,7 @@ export default new Router({
       name: 'Profile',
       component: Profile,
       props: true,
-      beforeEnter(to, from, next) {
-        if (store.state.authId) {
-          next()
-        } else {
-          next({ name: 'Home' })
-        }
-      }
+      meta: { requiresAuth: true }
     },
     {
       path: '/me/edit',
@@ -89,9 +82,27 @@ export default new Router({
     },
     {
       path: '*',
-      name: 'Not Found',
+      name: 'NotFound',
       component: NotFound
     }
   ],
   mode: 'history'
 })
+
+router.beforeEach((to, from, next) => {
+  console.log(`🚦 navigating to ${to.name} from ${from.name}`)
+  store.dispatch('initAuthentication').then(user => {
+    if (to.matched.some(route => route.meta.requiresAuth)) {
+      // protected route
+      if (user) {
+        next()
+      } else {
+        next({ name: 'Home' })
+      }
+    } else {
+      next()
+    }
+  })
+})
+
+export default router
