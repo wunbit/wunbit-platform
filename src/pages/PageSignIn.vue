@@ -53,7 +53,6 @@ export default {
       }
     }
   },
-
   methods: {
     signIn() {
       this.$store
@@ -61,17 +60,20 @@ export default {
           email: this.form.email,
           password: this.form.password
         })
-        .then(() => this.$router.push('/'))
+        .then(() => this.successRedirect())
         .catch(error => alert('🤷‍️' + error.message))
     },
     signInWithGoogle() {
       this.$store
         .dispatch('signInWithGoogle')
-        .then(() => this.$router.push('/'))
+        .then(() => this.successRedirect())
         .catch(error => alert('🤷‍️' + error.message))
+    },
+    successRedirect() {
+      const redirectTo = this.$route.query.redirectTo || { name: 'Home' }
+      this.$router.push(redirectTo)
     }
   },
-
   created() {
     this.$emit('ready')
   }
