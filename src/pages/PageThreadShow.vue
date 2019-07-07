@@ -16,17 +16,25 @@
       <span
         style="float:right; margin-top: 2px;"
         class="hide-mobile text-faded text-small"
-        >{{ repliesCount }} replies by
-        {{ contributorsCount }} contributors</span
       >
+        {{ repliesCount }} replies by {{ contributorsCount }} contributors
+      </span>
     </p>
     <PostList :posts="posts" />
-    <PostEditor :threadId="id" />
+    <PostEditor v-if="authUser" :threadId="id" />
+    <div v-else class="text-center" style="margin-bottom: 50px;">
+      <router-link :to="{ name: 'SignIn', query: { redirecTo: $route.path } }"
+        >Sign in&nbsp;</router-link
+      >or
+      <router-link :to="{ name: 'Register', query: { redirecTo: $route.path } }"
+        >Register</router-link
+      >&nbsp;to post a reply.
+    </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import PostList from '@/components/PostList'
 import PostEditor from '@/components/PostEditor'
 import { countObjectProperties } from '@/utils'
@@ -48,6 +56,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      authUser: 'authUser'
+    }),
     thread() {
       return this.$store.state.threads[this.id]
     },
