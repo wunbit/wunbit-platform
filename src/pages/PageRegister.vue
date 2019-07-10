@@ -45,15 +45,14 @@
             v-model.lazy="form.email"
             @blur="$v.form.email.$touch()"
             id="email"
-            type="email"
             class="form-input"
           />
           <template v-if="$v.form.email.$error">
             <span v-if="!$v.form.email.required" class="form-error"
               >This field is required</span
             >
-            <span v-else-if="!$v.form.email.required" class="form-error"
-              >This is not a valid email address</span
+            <span v-else-if="!$v.form.email.email" class="form-error"
+              >This in not a valid email address</span
             >
             <span v-else-if="!$v.form.email.unique" class="form-error"
               >Sorry! This email is taken</span
@@ -83,13 +82,26 @@
         <div class="form-group">
           <label for="avatar">Avatar</label>
           <input
-            v-model="form.avatar"
+            v-model.lazy="form.avatar"
             @blur="$v.form.avatar.$touch()"
             id="avatar"
             type="text"
             class="form-input"
           />
-          <template v-if="$v.form.avatar.$error"></template>
+          <template v-if="$v.form.avatar.$error">
+            <span v-if="!$v.form.avatar.url" class="form-error"
+              >The supplied URL is invalid</span
+            >
+            <span
+              v-else-if="!$v.form.avatar.supportedImageFile"
+              class="form-error"
+              >This file type is not supported by our system. Supported file
+              types: .jpg, .png, .gif, .jpeg, .svg</span
+            >
+            <span v-else-if="!$v.form.avatar.responseOk" class="form-error"
+              >The supplied image cannot be found</span
+            >
+          </template>
         </div>
 
         <div class="form-actions">
@@ -111,9 +123,9 @@ import {
   required,
   email,
   minLength,
+  url,
   helpers as vuelidateHelpers
 } from 'vuelidate/lib/validators'
-
 export default {
   data() {
     return {
@@ -126,7 +138,6 @@ export default {
       }
     }
   },
-
   validations: {
     form: {
       name: {
@@ -167,12 +178,31 @@ export default {
       },
       password: {
         required,
-        minLenght: minLength(6)
+        minLength: minLength(6)
       },
-      avatar: {}
+      avatar: {
+        url,
+        supportedImageFile(value) {
+          if (!vuelidateHelpers.req(value)) {
+            return true
+          }
+          const supported = ['jpg', 'jpeg', 'gif', 'png', 'svg']
+          const suffix = value.split('.').pop()
+          return supported.includes(suffix)
+        },
+        responseOk(value) {
+          if (!vuelidateHelpers.req(value)) {
+            return true
+          }
+          return new Promise((resolve, reject) => {
+            fetch(value)
+              .then(response => resolve(response.ok))
+              .catch(() => resolve(false))
+          })
+        }
+      }
     }
   },
-
   methods: {
     register() {
       this.$v.form.$touch()
