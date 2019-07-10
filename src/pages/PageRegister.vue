@@ -75,26 +75,22 @@ export default {
       }
     }
   },
-
   methods: {
     register() {
       this.$store
-        .dispatch('registerUserWithEmailAndPassword', this.form)
+        .dispatch('auth/registerUserWithEmailAndPassword', this.form)
         .then(() => this.successRedirect())
     },
-
     registerWithGoogle() {
       this.$store
-        .dispatch('signInWithGoogle')
+        .dispatch('auth/signInWithGoogle')
         .then(() => this.successRedirect())
     },
-
     successRedirect() {
       const redirectTo = this.$route.query.redirectTo || { name: 'Home' }
       this.$router.push(redirectTo)
     }
   },
-
   created() {
     this.$emit('ready')
   }

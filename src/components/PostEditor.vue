@@ -11,27 +11,28 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     threadId: {
       required: false
     },
-        post: {
-          type: Object,
-          validator: obj => {
-            const keyIsValid = typeof obj['.key'] === 'string'
-            const textIsValid = typeof obj.text === 'string'
-            const valid = keyIsValid && textIsValid
-            if (!textIsValid) {
-              console.error('The post prop object must include a `text` attribute.')
-            }
-            if (!keyIsValid) {
-              console.error('The post prop object must include a `.key` attribute.')
-            }
-            return valid
-          }
+    post: {
+      type: Object,
+      validator: obj => {
+        const keyIsValid = typeof obj['.key'] === 'string'
+        const textIsValid = typeof obj.text === 'string'
+        const valid = keyIsValid && textIsValid
+        if (!textIsValid) {
+          console.error('The post prop object must include a `text` attribute.')
         }
-      },
+        if (!keyIsValid) {
+          console.error('The post prop object must include a `.key` attribute.')
+        }
+        return valid
+      }
+    }
+  },
   data() {
     return {
       text: this.post ? this.post.text : ''
@@ -43,6 +44,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions('posts', ['createPost', 'updatePost']),
+
     save() {
       this.persist().then(post => {
         this.$emit('save', { post })
@@ -57,14 +60,14 @@ export default {
         threadId: this.threadId
       }
       this.text = ''
-      return this.$store.dispatch('createPost', post)
+      return this.createPost(post)
     },
     update() {
       const payload = {
         id: this.post['.key'],
         text: this.text
       }
-      return this.$store.dispatch('updatePost', payload)
+      return this.updatePost(payload)
     },
     persist() {
       return this.isUpdate ? this.update() : this.create()
