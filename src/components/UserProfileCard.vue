@@ -7,7 +7,7 @@
 
       <h1 class="title">{{ user.username }}</h1>
 
-      <p class="text-lead">{{ user.name }}r</p>
+      <p class="text-lead">{{ user.name }}</p>
 
       <p class="text-justify">
         <span v-if="user.bio">{{ user.bio }}</span>
@@ -50,7 +50,6 @@ export default {
       type: Object
     }
   },
-
   computed: {
     userThreadsCount() {
       return this.$store.getters['users/userThreadsCount'](this.user['.key'])
@@ -62,5 +61,4 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style></style>
+<style scoped></style>
