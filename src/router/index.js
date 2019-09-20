@@ -13,6 +13,7 @@ import SignIn from '@/pages/PageSignIn'
 import NotFound from '@/pages/PageNotFound'
 Vue.use(Router)
 
+
 const router = new Router({
   routes: [
     {
