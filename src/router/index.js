@@ -11,8 +11,8 @@ import Profile from '@/pages/PageProfile'
 import Register from '@/pages/PageRegister'
 import SignIn from '@/pages/PageSignIn'
 import NotFound from '@/pages/PageNotFound'
+import TestPage from '@/pages/TestPage'
 Vue.use(Router)
-
 
 const router = new Router({
   routes: [
@@ -20,6 +20,11 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/TestPage',
+      name: 'TestPage',
+      component: TestPage
     },
     {
       path: '/category/:id',
