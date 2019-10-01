@@ -8,7 +8,6 @@
     <router-link :to="{ name: 'Home' }" class="logo">
       <img src="../assets/img/wunbit-logo.svg" />
     </router-link>
-
     <div class="btn-hamburger" @click="mobileNavOpen = !mobileNavOpen">
       <!-- use .btn-humburger-active to open the menu -->
       <div class="top bar"></div>

@@ -11,7 +11,9 @@ import Profile from '@/pages/PageProfile'
 import Register from '@/pages/PageRegister'
 import SignIn from '@/pages/PageSignIn'
 import NotFound from '@/pages/PageNotFound'
-import TestPage from '@/pages/TestPage'
+import Fly2Win from '@/pages/Fly2Win'
+import GetCurrentUser from '@/pages/GetCurrentUser'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -22,9 +24,14 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/TestPage',
-      name: 'TestPage',
-      component: TestPage
+      path: '/GetCurrentUser',
+      name: 'GetCurrentUser',
+      component: GetCurrentUser
+    },
+    {
+      path: '/Fly2Win',
+      name: 'Fly2Win',
+      component: Fly2Win
     },
     {
       path: '/category/:id',
