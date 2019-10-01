@@ -1,5 +1,5 @@
 <template>
-  <div v-if="asyncDataStatus_ready" class="col-full push-top">
+  <div v-if="asyncDataStatus_ready" class="REST">
     {{ user.nickname }}
   </div>
 </template>

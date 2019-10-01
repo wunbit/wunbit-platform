@@ -1,5 +1,6 @@
 <template>
   <header
+    v-if="!$route.meta.hideNavigation"
     class="header"
     id="header"
     v-click-outside="closeMobileNavbar"

@@ -26,12 +26,14 @@ const router = new Router({
     {
       path: '/GetCurrentUser',
       name: 'GetCurrentUser',
-      component: GetCurrentUser
+      component: GetCurrentUser,
+      meta: { hideNavigation: true }
     },
     {
       path: '/Fly2Win',
       name: 'Fly2Win',
-      component: Fly2Win
+      component: Fly2Win,
+      meta: { hideNavigation: true }
     },
     {
       path: '/category/:id',
